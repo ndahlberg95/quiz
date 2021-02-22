@@ -1,7 +1,56 @@
 h1 {
     text-align: center;
+    margin: 0px auto;
+    display: block;
+    padding: 100px;
 }
 
-.startBtn {
+#homepage {
+    text-align: center;
+}
+
+p {
+    margin: 0 500px 100px 500px;
+    text-align: center;
+}
+
+.startBtn, .saveBtn {
     padding: 1em;
+}
+
+#quiz {
+    align-items: center;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    text-align: left;
+    margin-left: 300px;
+}
+
+#a, #b, #c, #d {
+    padding: 1em;
+}
+
+#summary {
+    text-align: center;
+}
+
+
+
+/* Media Queries for Smaller Screens */
+
+@media only screen and (max-width: 1200px) {
+    p {
+        margin: 0 300px 100px 300px;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    p {
+        margin: 0 100px 100px 100px;
+        text-align: center;
+    }
 }

@@ -1,92 +1,196 @@
-console.log ("Hello!")
-
+var startBtn = document.querySelector(".startBtn")
+var score = 0;
+var countdownTimer;
+var timer = 60;
+var counter = document.getElementById("timer");
+var questionIndex = 0;
+var questionText;
+var btnA = document.getElementById("a");
+var btnB = document.getElementById("b");
+var btnC = document.getElementById("c");
+var btnD = document.getElementById("d");
+var correctAnswers = "";
+var initials = "";
+var saveBtn = document.querySelector(".saveBtn");
 var questions = [
     {
-        prompt: "Question 1?",
-        answer: "Answer 1."
+        prompt: "How do you format an array?",
+        answers: {
+            a: "a. var arrayName = [item1, item2, item3];",
+            b: "b. var arrayName = (item1, item2, item3);",
+            c: "c. var arrayName [item1, item2, item3];",
+            d: "d. a and b",
+        },
+        correctAnswer: "a",
     },
     {
-        prompt: "Question 2?",
-        answer: "Answer 2."
+        prompt: "How do you call a function?",
+        answers: {
+            a: "a. function ()",
+            b: "b. function {}",
+            c: "c. (function)",
+            d: "d. function []",
+        },
+        correctAnswer: "a",
     },
     {
-        prompt: "Question 3?",
-        answer: "Answer 1."
+        prompt: "What will create a pop-up box?",
+        answers: {
+            a: "a. confirm",
+            b: "b. alert",
+            c: "c. prompt",
+            d: "d. all of the above",
+        },
+        correctAnswer: "d",
     },
     {
-        prompt: "Question 4?",
-        answer: "Answer 1."
+        prompt: "What is the correct way to assign no value to something in JavaScript?",
+        answers: {
+            a: "a. n/a",
+            b: "b. 0",
+            c: "c. NULL",
+            d: "d. N/A",
+        },
+        correctAnswer: "c",
     },
     {
-        prompt: "Question 5?",
-        answer: "Answer 1."
+        prompt: "Which punctuation is used for comments in JavaScript?",
+        answers: {
+            a: "a. //Comment Here",
+            b: "b. /Comment Here",
+            c: "c. /*Comment Here*/",
+            d: "d. *Comment Here*",
+        },
+        correctAnswer: "a",
     },
     {
-        prompt: "Question 6?",
-        answer: "Answer 1."
+        prompt: "Which is correctly formatted?",
+        answers: {
+            a: "a. <script> src='./assets/js/script.js' </script>",
+            b: "b. <script src='./assets/js/script.js'></script>",
+            c: "c. <script src=./assets/js/script.js></script>",
+            d: "d. <script src='./assets/js/script.js'><script>",
+        },
+        correctAnswer: "b",
     }
-]
-var score = 0;
-var timer = 60;
+];
+
+document.getElementById("quiz").style.display = "none";
+document.getElementById("summary").style.display = "none";
 
 
-//Step 1: Bring the HTML element into the JavaScript (get element by ID)
-//Step 2: Get the data in the same location
-//Step 3: Change the HTML element to the data
+//When the start button is clicked, the first question will appear and the countdown will begin.
 
-var btn = document.querySelector(".startBtn")
-    console.log (btn)
-
-var p = document.querySelector(".text")
-    console.log (p)
-
-var q2 = document.querySelector(".question2")
-    console.log (q2)
-
-var questionIndex = 0
-
-btn.addEventListener ("click", function(){
-    console.log ("yay!")
-    console.log (questions[questionIndex].prompt)
-    p.innerText = questions[questionIndex].prompt
-    questionIndex++
+startBtn.addEventListener ("click", function startClicked(){
+    document.getElementById("homepage").style.display = "none";
+    document.getElementById("quiz").style.display = "initial";
+    document.getElementById("question").innerHTML = questions[0].prompt;
+    document.getElementById("a").innerHTML = questions[0].answers.a;
+    document.getElementById("b").innerHTML = questions[0].answers.b;
+    document.getElementById("c").innerHTML = questions[0].answers.c;
+    document.getElementById("d").innerHTML = questions[0].answers.d;
+    countdownTimer = setInterval(countdown, 1000);
 })
 
-//When all questions are answered OR time runs out:
 
-// for (var i = 0; i < questions.length; i++) {
-//     var response = window.prompt (questions[i].prompt)
-//     if (respone == questions[i].answer) {
-//         score++;
-//         alert("Correct!");
-//     } else {
-//         timer - 10;
-//         alert("Wrong!");
-//     };
-//     alert ("You got ", score + "/", questions.length)
-// }
+//When an answer is clicked, the next question will appear.
 
-// function countdown(seconds) {
-//     var seconds = 60;
-//     function tick() {
-//         var counter = document.getElementById("timer");
-//         counter.innerHTML = (seconds < 10 ? "0" : "") + String(seconds);
-//         if( seconds > 0 ) {
-//             gameOver(tick, 1000);
-//         } else {
-//             if(seconds > 1){
-//                 countdown(seconds-1);           
-//             }
-//         }
-//     }
-//     tick();
-// }
+btnA.addEventListener("click", function answerClicked(input){
+    questionIndex = questionIndex + 1;
+    if(questionIndex == questions.length){
+        gameOver()
+    } else {
+        questionText = questions[questionIndex].prompt
+        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
+        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
+        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
+        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
+        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
+    }
+     //Check answers:
+        if ((input) == questions[questionIndex].correctAnswer) {
+            score++;
+        } else {
+            timer - 10;
+        };
+})
 
+btnB.addEventListener("click", function answerClicked(input){
+    questionIndex = questionIndex + 1;
+    if(questionIndex == questions.length){
+        gameOver()
+    } else {
+        questionText = questions[questionIndex].prompt
+        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
+        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
+        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
+        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
+        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
+    }
+     //Check answers:
+        if ((input) == questions[questionIndex].correctAnswer) {
+            score++;
+        } else {
+            timer - 10;
+        };
+})
 
-// function gameOver() {
-//     alert("Game Over!");
-//     //display score
-//     //enter initials
-//     //save
-//   }
-//   setTimeout(gameOver, 60000);
+btnC.addEventListener("click", function answerClicked(input){
+    questionIndex = questionIndex + 1;
+    if(questionIndex == questions.length){
+        gameOver()
+    } else {
+        questionText = questions[questionIndex].prompt
+        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
+        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
+        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
+        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
+        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
+    }
+     //Check answers:
+        if ((input) == questions[questionIndex].correctAnswer) {
+            score++;
+        } else {
+            timer - 10;
+        };
+})
+
+btnD.addEventListener("click", function answerClicked(input){
+    questionIndex = questionIndex + 1;
+    if(questionIndex == questions.length){
+        gameOver()
+    } else {
+        questionText = questions[questionIndex].prompt
+        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
+        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
+        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
+        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
+        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
+    }
+     //Check answers:
+        if ((input) == questions[questionIndex].correctAnswer) {
+            score++;
+        } else {
+            timer - 10;
+        };
+})
+
+function countdown() {
+        if( timer > 0 ) {
+            counter.innerHTML = timer;
+            timer--
+        } else {
+            console.log (timer, "else")
+            counter.innerHTML = 0;
+            gameOver()
+        } 
+}
+
+function gameOver() {
+    clearInterval(countdownTimer);
+    document.getElementById("summary").style.display = "initial";
+    document.getElementById("quiz").style.display = "none";
+    //display score("You got ", score + "/", questions.length)
+    //enter initials
+    //save
+  }

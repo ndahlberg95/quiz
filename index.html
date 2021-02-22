@@ -7,15 +7,56 @@
     <title>JavaScript Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css"/>
 </head>
+
 <body>
-    <h1>JavaScript</h1>
+    <div id="container">
 
-    <button class="startBtn">Start</button>
+        <h1>JavaScript Quiz</h1>
 
-    <p class="text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga consequatur voluptas necessitatibus fugit mollitia ipsam impedit eveniet iure vero tempore. Cupiditate ratione cumque quisquam pariatur, officiis magni illo distinctio architecto?</p>
+        <div class="break"></div>
 
-    <p class="question2"> Here is question number 2.</p>
-    
+        <div id="homepage">
+
+            <p>This quiz contains six multiple-choice questions about the fundamentals of JavaScript.  You have ten seconds to answer each question.  If you answer a question incorrectly, 10 seconds will be deducted from your time.</p>
+
+            <button class="startBtn">Start</button>
+
+        </div>
+
+        <div id="quiz">
+
+            <div id="timer">Seconds left: <span id="time-left">60</span></div>
+
+            <p id="question"></p>
+
+            <ul>
+                <li><button class="answerbtn" id="a"></button></li>
+
+                <li><button class="answerbtn" id="b"></button></li>
+
+                <li><button class="answerbtn" id="c"></button></li>
+
+                <li><button class="answerbtn" id="d"></button></li>
+            </ul>
+  
+        </div>
+
+        <div id="summary">
+
+            <h3>Summary</h3>
+
+            <p></p>
+
+            <div id="score"></div>
+
+            <input id="initials">Enter your initials: </input>
+
+            <button class="saveBtn">Save</button>
+
+        </div>
+
+    </div>
+
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
