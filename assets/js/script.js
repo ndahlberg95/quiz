@@ -81,116 +81,77 @@ document.getElementById("summary").style.display = "none";
 
 //When the start button is clicked, the first question will appear and the countdown will begin.
 
-startBtn.addEventListener ("click", function startClicked(){
+startBtn.addEventListener("click", function startClicked() {
     document.getElementById("homepage").style.display = "none";
     document.getElementById("quiz").style.display = "initial";
-    document.getElementById("question").innerHTML = questions[0].prompt;
-    document.getElementById("a").innerHTML = questions[0].answers.a;
-    document.getElementById("b").innerHTML = questions[0].answers.b;
-    document.getElementById("c").innerHTML = questions[0].answers.c;
-    document.getElementById("d").innerHTML = questions[0].answers.d;
+    document.getElementById("question").innerText = questions[0].prompt;
+    document.getElementById("a").innerText = questions[0].answers.a;
+    document.getElementById("b").innerText = questions[0].answers.b;
+    document.getElementById("c").innerText = questions[0].answers.c;
+    document.getElementById("d").innerText = questions[0].answers.d;
     countdownTimer = setInterval(countdown, 1000);
 })
 
 
 //When an answer is clicked, the next question will appear.
 
-btnA.addEventListener("click", function answerClicked(input){
+function answerClicked(input) {
+    console.log(input.target.id);
     questionIndex = questionIndex + 1;
-    if(questionIndex == questions.length){
-        gameOver()
-    } else {
-        questionText = questions[questionIndex].prompt
-        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
-        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
-        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
-        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
-        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
-    }
-     //Check answers:
-        if ((input) == questions[questionIndex].correctAnswer) {
-            score++;
-        } else {
-            timer - 10;
-        };
-})
+    console.log(questions, questionIndex, questions[questionIndex]);
 
-btnB.addEventListener("click", function answerClicked(input){
-    questionIndex = questionIndex + 1;
-    if(questionIndex == questions.length){
-        gameOver()
-    } else {
-        questionText = questions[questionIndex].prompt
-        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
-        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
-        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
-        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
-        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
+    if (questionIndex == questions.length) {
+        return gameOver()
     }
-     //Check answers:
-        if ((input) == questions[questionIndex].correctAnswer) {
-            score++;
-        } else {
-            timer - 10;
-        };
-})
 
-btnC.addEventListener("click", function answerClicked(input){
-    questionIndex = questionIndex + 1;
-    if(questionIndex == questions.length){
-        gameOver()
+    //Check answers:
+    if ((input.target.id) == questions[questionIndex].correctAnswer) {
+        console.log("Correct!")
+        score++;
     } else {
-        questionText = questions[questionIndex].prompt
-        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
-        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
-        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
-        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
-        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
-    }
-     //Check answers:
-        if ((input) == questions[questionIndex].correctAnswer) {
-            score++;
-        } else {
-            timer - 10;
-        };
-})
+        console.log("Wrong!")
+        timer = timer - 10;
+    };
 
-btnD.addEventListener("click", function answerClicked(input){
-    questionIndex = questionIndex + 1;
-    if(questionIndex == questions.length){
-        gameOver()
-    } else {
-        questionText = questions[questionIndex].prompt
-        document.getElementById("question").innerHTML = questions[questionIndex].prompt;
-        document.getElementById("a").innerHTML = questions[questionIndex].answers.a;
-        document.getElementById("b").innerHTML = questions[questionIndex].answers.b;
-        document.getElementById("c").innerHTML = questions[questionIndex].answers.c;
-        document.getElementById("d").innerHTML = questions[questionIndex].answers.d;
-    }
-     //Check answers:
-        if ((input) == questions[questionIndex].correctAnswer) {
-            score++;
-        } else {
-            timer - 10;
-        };
-})
+    questionText = questions[questionIndex].prompt
+    document.getElementById("question").innerText = questions[questionIndex].prompt;
+    document.getElementById("a").innerText = questions[questionIndex].answers.a;
+    document.getElementById("b").innerText = questions[questionIndex].answers.b;
+    document.getElementById("c").innerText = questions[questionIndex].answers.c;
+    document.getElementById("d").innerText = questions[questionIndex].answers.d;
+}
+
+btnA.addEventListener("click", answerClicked)
+btnB.addEventListener("click", answerClicked)
+btnC.addEventListener("click", answerClicked)
+btnD.addEventListener("click", answerClicked)
 
 function countdown() {
-        if( timer > 0 ) {
-            counter.innerHTML = timer;
-            timer--
-        } else {
-            console.log (timer, "else")
-            counter.innerHTML = 0;
-            gameOver()
-        } 
+    if (timer > 0) {
+        counter.innerText = timer;
+        timer--
+    } else {
+        console.log(timer, "else")
+        counter.innerText = 0;
+        gameOver()
+    }
 }
 
 function gameOver() {
     clearInterval(countdownTimer);
     document.getElementById("summary").style.display = "initial";
     document.getElementById("quiz").style.display = "none";
-    //display score("You got ", score + "/", questions.length)
-    //enter initials
-    //save
-  }
+    document.getElementById("score").innerText = "Score: " + score;   
+}
+
+saveBtn.addEventListener("click", function initials () {
+    var initials = document.getElementById("initials").value;
+    localStorage.setItem (initials, score)
+    console.log ("These are the initials:", initials);
+})
+
+
+
+var asdf = localStorage.getItem ("foo")
+
+console.log (asdf)
